@@ -26,3 +26,4 @@ Klasa wiadomości
         load_all_messages – wczytanie wszystkich wiadomości.
 
 
+
