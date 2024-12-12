@@ -1,6 +1,6 @@
 # ****Obiektowa obsługa bazy danych****
 
-Do wcześniej stworzonej bazy danych stwórz osobny moduł by umieścić kod do obsługi poszczególnych tabel.
+**Do wcześniej stworzonej bazy danych stwórz osobny moduł by umieścić kod do obsługi poszczególnych tabel.**
 
 Klasa użytkownika
 
