@@ -1,5 +1,4 @@
 import argparse
-from xxlimited_35 import error
 
 from psycopg2 import connect, OperationalError
 from psycopg2.errors import UniqueViolation
@@ -52,10 +51,8 @@ def new_user(cursor, username, password):
             user = User(username=username, password=password)
             user.save_to_db(cursor)
             print("User created successfully")
-    else:
-
         except UniqueViolation as e:
-        print ("User already exists", e)
+            print ("User already exists", e)
 
 def list(cursor, list):
     user = User.load_all_users(cursor)
