@@ -64,9 +64,25 @@ def list(cursor, list):
 
 if __name__ == '__main__':
     try:
-pass
+        cnx = connect(database="workshop", user="postgres", password="coderslab", host="127.0.0.1")  # Tutaj otwierane jest połączenie z bazą danych. Funkcja connect() pochodzi prawdopodobnie z biblioteki, takiej jak psycopg2, która służy do łączenia się z bazą danych PostgreSQL. Parametry wskazują nazwę bazy danych (workshop), nazwę użytkownika (postgres), hasło (coderslab) oraz hosta (127.0.0.1 oznacza lokalny komputer).
+        cnx.autocommit = True  # Ta linia ustawia tryb autocommit na True, co oznacza, że każda operacja na bazie danych (np. INSERT, UPDATE, DELETE) będzie natychmiast zapisywana w bazie, bez potrzeby ręcznego zatwierdzania transakcji (np. przez commit()).
+        cursor = cnx.cursor()
+        if args.username and args.password and args.edit and args.new_pass:  # Ten warunek sprawdza, czy zostały przekazane wszystkie wymagane argumenty: username, password, edit i new_pass. Jeśli tak, wywołana zostanie funkcja edit_user(), która umożliwia edytowanie użytkownika.
+            edit_user(cursor, args.username, args.password, args.new_pass) #  Ta linia wywołuje funkcję edit_user(), która prawdopodobnie służy do edytowania danych użytkownika w bazie. Argumenty przekazywane to: kursor bazy danych (cursor), nazwa użytkownika (args.username), jego hasło (args.password), oraz nowe hasło (args.new_pass).
+        elif args.username and args.password and args.delete: # Jeśli nie spełniony był poprzedni warunek, ale zostały przekazane argumenty username, password oraz delete, to warunek będzie prawdziwy i wywoła się funkcja usuwająca użytkownika.
+            delete_user(cursor, args.username, args.password)   # Wywołanie funkcji delete_user(), która prawdopodobnie usuwa użytkownika z bazy danych na podstawie podanych argumentów: nazwa użytkownika (args.username) i hasło (args.password).
+        elif args.username and args.password:   # Jeśli spełnione są tylko argumenty username i password (czyli nie ma żadnych dodatkowych operacji jak edytowanie czy usuwanie), przejdzie do tworzenia nowego użytkownika.
+            create_user(cursor, args.username, args.password)  # Wywołanie funkcji create_user(), która tworzy nowego użytkownika w bazie danych, przekazując mu nazwę użytkownika (args.username) oraz hasło (args.password).
+        elif args.list: #  Jeśli przekazany argument to list (czyli użytkownik chce wyświetlić listę użytkowników), warunek zostaje spełniony.
+            list_users(cursor)  # Wywołanie funkcji list_users(), która prawdopodobnie wyświetla listę wszystkich użytkowników zapisanych w bazie danych.
+        else:
+            parser.print_help()  # Ta linia wywołuje metodę print_help() obiektu parser, która prawdopodobnie jest instancją klasy odpowiedzialnej za parsowanie argumentów wiersza poleceń (np. z biblioteki argparse). Dzięki temu użytkownik otrzyma pomoc dotyczącą dostępnych opcji uruchomienia skryptu.
+        cnx.close()
+    except OperationalError as err:  # Ten blok except łapie wyjątek OperationalError, który może wystąpić, jeśli wystąpi problem z połączeniem do bazy danych lub wykonaniem operacji.
+        print("Connection Error: ", err)
 
-#cdn....
+
+
 
 
 
