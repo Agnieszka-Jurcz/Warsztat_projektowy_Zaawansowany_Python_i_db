@@ -54,7 +54,7 @@ def new_user(cursor, username, password):
         except UniqueViolation as e:
             print ("User already exists", e)
 
-def list(cursor, list):
+def list(cursor):
     user = User.load_all_users(cursor)
     for user in user:
         print (user.username)
